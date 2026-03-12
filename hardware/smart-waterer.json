@@ -1,0 +1,243 @@
+{
+  "docType": "5",
+  "name": "Smart Waterer",
+  "description": "智能浇花机 - ESP32-C3",
+  "version": "1.0",
+  "author": "Smart Waterer Team",
+  "date": "2026-03-12",
+  "sheets": [
+    {
+      "id": "sheet1",
+      "name": "主原理图",
+      "objects": [
+        {
+          "libId": "C2040789",
+          "name": "U1",
+          "value": "ESP32-C3-SuperMini",
+          "footprint": "ESP32-C3-SuperMini",
+          "x": 400,
+          "y": 300,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "3.3V", "name": "3V3"},
+            "2": {"net": "GND", "name": "GND"},
+            "3": {"net": "GPIO0", "name": "GPIO0"},
+            "4": {"net": "GPIO1", "name": "GPIO1"},
+            "5": {"net": "GPIO2", "name": "GPIO2"},
+            "6": {"net": "GPIO3", "name": "GPIO3"},
+            "7": {"net": "GPIO4", "name": "GPIO4"},
+            "8": {"net": "GPIO5", "name": "GPIO5"},
+            "9": {"net": "5V", "name": "5V"},
+            "10": {"net": "GND", "name": "GND"}
+          }
+        },
+        {
+          "libId": "C20963",
+          "name": "J1",
+          "value": "土壤湿度",
+          "footprint": "PINHDR-3P-P2.54MM",
+          "x": 200,
+          "y": 200,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "3.3V", "name": "VCC"},
+            "2": {"net": "GND", "name": "GND"},
+            "3": {"net": "GPIO0", "name": "AO"}
+          }
+        },
+        {
+          "libId": "C20963",
+          "name": "J2",
+          "value": "水位检测",
+          "footprint": "PINHDR-3P-P2.54MM",
+          "x": 200,
+          "y": 300,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "3.3V", "name": "VCC"},
+            "2": {"net": "GND", "name": "GND"},
+            "3": {"net": "GPIO2", "name": "OUT"}
+          }
+        },
+        {
+          "libId": "C20959",
+          "name": "J3",
+          "value": "水泵",
+          "footprint": "Terminal-2P-P5.08MM",
+          "x": 600,
+          "y": 200,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "5V", "name": "+"},
+            "2": {"net": "PUMP_CTRL", "name": "-"}
+          }
+        },
+        {
+          "libId": "C21061",
+          "name": "Q1",
+          "value": "S8050",
+          "footprint": "SOT-23",
+          "x": 550,
+          "y": 300,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "GPIO1", "name": "B"},
+            "2": {"net": "GND", "name": "E"},
+            "3": {"net": "PUMP_CTRL", "name": "C"}
+          }
+        },
+        {
+          "libId": "C17514",
+          "name": "R1",
+          "value": "1kΩ",
+          "footprint": "R0805",
+          "x": 500,
+          "y": 350,
+          "rotation": 90,
+          "pins": {
+            "1": {"net": "GPIO1", "name": "1"},
+            "2": {"net": "GPIO1", "name": "2"}
+          }
+        },
+        {
+          "libId": "C9628",
+          "name": "D1",
+          "value": "1N4148",
+          "footprint": "SOD-323",
+          "x": 580,
+          "y": 250,
+          "rotation": 180,
+          "pins": {
+            "1": {"net": "GND", "name": "K"},
+            "2": {"net": "PUMP_CTRL", "name": "A"}
+          }
+        },
+        {
+          "libId": "C2286",
+          "name": "LED1",
+          "value": "LED-RED",
+          "footprint": "LED-D3.0MM",
+          "x": 300,
+          "y": 450,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "3.3V", "name": "A"},
+            "2": {"net": "GPIO4", "name": "K"}
+          }
+        },
+        {
+          "libId": "C17514",
+          "name": "R2",
+          "value": "220Ω",
+          "footprint": "R0805",
+          "x": 350,
+          "y": 450,
+          "rotation": 90,
+          "pins": {
+            "1": {"net": "3.3V", "name": "1"},
+            "2": {"net": "GPIO4", "name": "2"}
+          }
+        },
+        {
+          "libId": "C105909",
+          "name": "BZ1",
+          "value": "BUZZER",
+          "footprint": "BUZZER-D5.0MM",
+          "x": 450,
+          "y": 450,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "3.3V", "name": "+"},
+            "2": {"net": "GPIO5", "name": "-"}
+          }
+        },
+        {
+          "libId": "C17614",
+          "name": "R3",
+          "value": "100kΩ",
+          "footprint": "R0805",
+          "x": 250,
+          "y": 400,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "VBAT", "name": "1"},
+            "2": {"net": "BAT_DIV", "name": "2"}
+          }
+        },
+        {
+          "libId": "C17714",
+          "name": "R4",
+          "value": "200kΩ",
+          "footprint": "R0805",
+          "x": 250,
+          "y": 450,
+          "rotation": 0,
+          "pins": {
+            "1": {"net": "BAT_DIV", "name": "1"},
+            "2": {"net": "GND", "name": "2"}
+          }
+        },
+        {
+          "libId": "C1585",
+          "name": "C1",
+          "value": "100nF",
+          "footprint": "C0805",
+          "x": 300,
+          "y": 400,
+          "rotation": 90,
+          "pins": {
+            "1": {"net": "BAT_DIV", "name": "1"},
+            "2": {"net": "GND", "name": "2"}
+          }
+        },
+        {
+          "libId": "C165948",
+          "name": "USB1",
+          "value": "USB-C",
+          "footprint": "USB-C-31-M-16P",
+          "x": 100,
+          "y": 100,
+          "rotation": 270,
+          "pins": {
+            "VBUS": {"net": "5V", "name": "VBUS"},
+            "GND": {"net": "GND", "name": "GND"},
+            "CC1": {"net": "NC", "name": "CC1"},
+            "CC2": {"net": "NC", "name": "CC2"}
+          }
+        }
+      ],
+      "nets": [
+        {"name": "3.3V", "color": "#FF0000"},
+        {"name": "5V", "color": "#00FF00"},
+        {"name": "GND", "color": "#0000FF"},
+        {"name": "GPIO0", "color": "#FFFF00"},
+        {"name": "GPIO1", "color": "#FF00FF"},
+        {"name": "GPIO2", "color": "#00FFFF"},
+        {"name": "GPIO3", "color": "#FFA500"},
+        {"name": "GPIO4", "color": "#800080"},
+        {"name": "GPIO5", "color": "#008080"},
+        {"name": "PUMP_CTRL", "color": "#A52A2A"},
+        {"name": "VBAT", "color": "#FFC0CB"},
+        {"name": "BAT_DIV", "color": "#808080"},
+        {"name": "NC", "color": "#C0C0C0"}
+      ]
+    }
+  ],
+  "bom": {
+    "total": 14,
+    "items": [
+      {"designator": "U1", "value": "ESP32-C3-SuperMini", "lcsc": "C2040789", "qty": 1},
+      {"designator": "J1,J2", "value": "3Pin 排针", "lcsc": "C20963", "qty": 2},
+      {"designator": "J3", "value": "2Pin 接线端子", "lcsc": "C20959", "qty": 1},
+      {"designator": "Q1", "value": "S8050", "lcsc": "C21061", "qty": 1},
+      {"designator": "R1,R2", "value": "1kΩ 0805", "lcsc": "C17514", "qty": 2},
+      {"designator": "D1", "value": "1N4148", "lcsc": "C9628", "qty": 1},
+      {"designator": "LED1", "value": "LED 3mm 红色", "lcsc": "C2286", "qty": 1},
+      {"designator": "BZ1", "value": "蜂鸣器 3.3V", "lcsc": "C105909", "qty": 1},
+      {"designator": "R3", "value": "100kΩ 0805", "lcsc": "C17614", "qty": 1},
+      {"designator": "R4", "value": "200kΩ 0805", "lcsc": "C17714", "qty": 1},
+      {"designator": "C1", "value": "100nF 0805", "lcsc": "C1585", "qty": 1},
+      {"designator": "USB1", "value": "USB-C 母座", "lcsc": "C165948", "qty": 1}
+    ]
+  }
+}
