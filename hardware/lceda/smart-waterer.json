@@ -1,0 +1,256 @@
+{
+  "message": "立创 EDA 标准版 - 智能浇花机 v0.3",
+  "type": "schematic",
+  "version": "1.0",
+  "data": {
+    "title": "智能浇花机 v0.3（安全整改版）",
+    "description": "ESP32-C3 智能浇花机 - 含 NTC 温度监控/TVS 浪涌保护/保险丝过流保护",
+    "date": "2026-03-13",
+    "author": "Smart Waterer Team",
+    "canvas": {
+      "width": 800,
+      "height": 600,
+      "gridSize": 10
+    },
+    "components": [
+      {
+        "name": "U1",
+        "value": "ESP32-C3-SuperMini",
+        "footprint": "ESP32-C3-SuperMini",
+        "lcsc": "C2040789",
+        "x": 400,
+        "y": 300,
+        "rotation": 0
+      },
+      {
+        "name": "TH1",
+        "value": "NTC 10kΩ B3950",
+        "footprint": "R0805",
+        "lcsc": "C2893625",
+        "x": 550,
+        "y": 200,
+        "rotation": 0
+      },
+      {
+        "name": "R1",
+        "value": "10kΩ",
+        "footprint": "R0805",
+        "lcsc": "C17414",
+        "x": 540,
+        "y": 180,
+        "rotation": 90
+      },
+      {
+        "name": "C1",
+        "value": "100nF",
+        "footprint": "C0805",
+        "lcsc": "C1585",
+        "x": 560,
+        "y": 220,
+        "rotation": 0
+      },
+      {
+        "name": "D1",
+        "value": "SMAJ5.0A",
+        "footprint": "DO-214AC",
+        "lcsc": "C117462",
+        "x": 300,
+        "y": 150,
+        "rotation": 90
+      },
+      {
+        "name": "F1",
+        "value": "1812L110",
+        "footprint": "1812",
+        "lcsc": "C318886",
+        "x": 300,
+        "y": 350,
+        "rotation": 0
+      },
+      {
+        "name": "Q1",
+        "value": "AO4606",
+        "footprint": "SOIC-8",
+        "lcsc": "C198134",
+        "x": 600,
+        "y": 400,
+        "rotation": 0
+      },
+      {
+        "name": "D2",
+        "value": "1N4148",
+        "footprint": "SOD-323",
+        "lcsc": "C9628",
+        "x": 620,
+        "y": 400,
+        "rotation": 90
+      },
+      {
+        "name": "U2",
+        "value": "AMS1117-3.3",
+        "footprint": "SOT-223",
+        "lcsc": "C6186",
+        "x": 400,
+        "y": 500,
+        "rotation": 0
+      },
+      {
+        "name": "J1",
+        "value": "USB-C",
+        "footprint": "USB-C-16Pin",
+        "lcsc": "C165948",
+        "x": 300,
+        "y": 100,
+        "rotation": 0
+      },
+      {
+        "name": "J2",
+        "value": "土壤湿度",
+        "footprint": "KF301-2P",
+        "lcsc": "C20959",
+        "x": 450,
+        "y": 150,
+        "rotation": 90
+      },
+      {
+        "name": "J3",
+        "value": "水位检测",
+        "footprint": "KF301-2P",
+        "lcsc": "C20959",
+        "x": 480,
+        "y": 150,
+        "rotation": 90
+      },
+      {
+        "name": "J4",
+        "value": "水泵",
+        "footprint": "KF301-2P",
+        "lcsc": "C20959",
+        "x": 650,
+        "y": 400,
+        "rotation": 0
+      },
+      {
+        "name": "LED1",
+        "value": "LED 3mm",
+        "footprint": "LED-3mm",
+        "lcsc": "C2286",
+        "x": 500,
+        "y": 350,
+        "rotation": 0
+      },
+      {
+        "name": "R2",
+        "value": "220Ω",
+        "footprint": "R0805",
+        "lcsc": "C17514",
+        "x": 480,
+        "y": 350,
+        "rotation": 0
+      },
+      {
+        "name": "BZ1",
+        "value": "Buzzer 3.3V",
+        "footprint": "Buzzer-3.3V",
+        "lcsc": "C105909",
+        "x": 550,
+        "y": 350,
+        "rotation": 0
+      }
+    ],
+    "nets": [
+      {
+        "name": "3.3V",
+        "connections": [
+          "U1:3V3",
+          "R1:1",
+          "U2:VOUT"
+        ]
+      },
+      {
+        "name": "GND",
+        "connections": [
+          "U1:GND",
+          "D1:2",
+          "C1:2",
+          "TH1:2",
+          "U2:GND"
+        ]
+      },
+      {
+        "name": "USB_5V",
+        "connections": [
+          "J1:VBUS",
+          "D1:1"
+        ]
+      },
+      {
+        "name": "NTC_Temp",
+        "connections": [
+          "U1:GPIO3",
+          "R1:2",
+          "TH1:1",
+          "C1:1"
+        ]
+      },
+      {
+        "name": "Soil_Moisture",
+        "connections": [
+          "U1:GPIO0",
+          "J2:AO"
+        ]
+      },
+      {
+        "name": "Water_Level",
+        "connections": [
+          "U1:GPIO2",
+          "J3:OUT"
+        ]
+      },
+      {
+        "name": "Pump_Control",
+        "connections": [
+          "U1:GPIO1",
+          "Q1:G"
+        ]
+      },
+      {
+        "name": "LED",
+        "connections": [
+          "U1:GPIO4",
+          "R2:1"
+        ]
+      },
+      {
+        "name": "Buzzer",
+        "connections": [
+          "U1:GPIO5",
+          "BZ1:+"
+        ]
+      },
+      {
+        "name": "Battery_P+",
+        "connections": [
+          "TP5100:OUT+",
+          "F1:1"
+        ]
+      },
+      {
+        "name": "System_5V",
+        "connections": [
+          "F1:2",
+          "U2:VIN",
+          "J4:1"
+        ]
+      }
+    ],
+    "designRules": {
+      "trackWidth": {
+        "power": "1.0mm",
+        "signal": "0.3mm"
+      },
+      "clearance": "0.2mm"
+    }
+  },
+  "note": "⚠️ 立创 EDA 标准版不支持导入外部 JSON 文件。\n\n请使用以下方法：\n1. 打开 https://lceda.cn/editor\n2. 手动绘制（参考 docs/HARDWARE_DESIGN.md）\n3. 或从立创开源广场复制类似项目修改"
+}
