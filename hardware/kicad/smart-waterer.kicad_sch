@@ -4,14 +4,12 @@
 	(generator_version "9.0")
 	(uuid "5a74c180-b32f-4b77-92a3-89d75ec44c4d")
 	(paper "A4")
-
 	(title_block
-		(title "智能浇花机 v0.4（简化版）")
+		(title "智能浇花机 v0.4")
 		(date "2026-03-13")
 		(rev "v0.4")
 		(company "Smart Waterer Team")
 	)
-
 	(lib_symbols
 		(symbol "Device:R"
 			(pin "1" passive (at 0 0 0))
@@ -30,7 +28,6 @@
 			(pin "2" passive (at 0 0 0))
 		)
 	)
-
 	(components
 		(symbol "U1" (lib_id "ESP32-C3-SuperMini")
 			(at 100 80 0)
@@ -42,7 +39,6 @@
 			(property "Footprint" "ESP32-C3-SuperMini" (at 95 90 0))
 			(property "LCSC" "C2040789" (at 95 95 0))
 		)
-
 		(symbol "TH1" (lib_id "Device:R")
 			(at 150 30 0)
 			(unit 1)
@@ -53,7 +49,6 @@
 			(property "Footprint" "Resistor_SMD:R_0805" (at 145 40 0))
 			(property "LCSC" "C2893625" (at 145 45 0))
 		)
-
 		(symbol "R1" (lib_id "Device:R")
 			(at 140 20 0)
 			(unit 1)
@@ -64,7 +59,6 @@
 			(property "Footprint" "Resistor_SMD:R_0805" (at 135 30 0))
 			(property "LCSC" "C17414" (at 135 35 0))
 		)
-
 		(symbol "C1" (lib_id "Device:C")
 			(at 160 30 0)
 			(unit 1)
@@ -75,7 +69,6 @@
 			(property "Footprint" "Capacitor_SMD:C_0805" (at 155 40 0))
 			(property "LCSC" "C1585" (at 155 45 0))
 		)
-
 		(symbol "D1" (lib_id "Device:D")
 			(at 50 20 0)
 			(unit 1)
@@ -86,7 +79,6 @@
 			(property "Footprint" "Diode_SMD:D_SMA" (at 45 30 0))
 			(property "LCSC" "C117462" (at 45 35 0))
 		)
-
 		(symbol "F1" (lib_id "Device:Fuse")
 			(at 50 70 0)
 			(unit 1)
@@ -97,7 +89,6 @@
 			(property "Footprint" "Fuse:Fuse_1812" (at 45 80 0))
 			(property "LCSC" "C318886" (at 45 85 0))
 		)
-
 		(symbol "Q1" (lib_id "Device:Q_NJFET_GSD")
 			(at 200 70 0)
 			(unit 1)
@@ -108,7 +99,6 @@
 			(property "Footprint" "Package_SO:SOIC-8" (at 195 80 0))
 			(property "LCSC" "C198134" (at 195 85 0))
 		)
-
 		(symbol "D2" (lib_id "Device:D")
 			(at 220 70 0)
 			(unit 1)
@@ -119,7 +109,6 @@
 			(property "Footprint" "Diode_SMD:D_SOD-323" (at 215 80 0))
 			(property "LCSC" "C9628" (at 215 85 0))
 		)
-
 		(symbol "U2" (lib_id "Regulator_Linear:XC6206-3.3V")
 			(at 100 100 0)
 			(unit 1)
@@ -130,7 +119,6 @@
 			(property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 95 110 0))
 			(property "LCSC" "C2834053" (at 95 115 0))
 		)
-
 		(symbol "U3" (lib_id "Charger:TP4056")
 			(at 50 100 0)
 			(unit 1)
@@ -141,7 +129,6 @@
 			(property "Footprint" "Package_DFN_QFN:DFN-8" (at 45 110 0))
 			(property "LCSC" "C44668" (at 45 115 0))
 		)
-
 		(symbol "U4" (lib_id "Regulator_Switching:MT3608")
 			(at 150 100 0)
 			(unit 1)
@@ -152,7 +139,6 @@
 			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6" (at 145 110 0))
 			(property "LCSC" "C123149" (at 145 115 0))
 		)
-
 		(symbol "J1" (lib_id "Connector:USB_C_Receptacle")
 			(at 50 20 0)
 			(unit 1)
@@ -163,7 +149,6 @@
 			(property "Footprint" "Connector_USB:USB_C_Receptacle" (at 45 30 0))
 			(property "LCSC" "C165948" (at 45 35 0))
 		)
-
 		(symbol "J2" (lib_id "Connector:TerminalBlock_KF301-2P")
 			(at 120 10 0)
 			(unit 1)
@@ -174,7 +159,6 @@
 			(property "Footprint" "TerminalBlock:TerminalBlock_KF301-2P" (at 115 20 0))
 			(property "LCSC" "C20959" (at 115 25 0))
 		)
-
 		(symbol "J3" (lib_id "Connector:TerminalBlock_KF301-2P")
 			(at 140 10 0)
 			(unit 1)
@@ -185,7 +169,6 @@
 			(property "Footprint" "TerminalBlock:TerminalBlock_KF301-2P" (at 135 20 0))
 			(property "LCSC" "C20959" (at 135 25 0))
 		)
-
 		(symbol "J4" (lib_id "Connector:TerminalBlock_KF301-2P")
 			(at 250 70 0)
 			(unit 1)
@@ -196,7 +179,6 @@
 			(property "Footprint" "TerminalBlock:TerminalBlock_KF301-2P" (at 245 80 0))
 			(property "LCSC" "C20959" (at 245 85 0))
 		)
-
 		(symbol "J5" (lib_id "Connector:TerminalBlock_KF301-2P")
 			(at 160 10 0)
 			(unit 1)
@@ -208,7 +190,6 @@
 			(property "LCSC" "C20959" (at 155 25 0))
 		)
 	)
-
 	(nets
 		(net 1 "GND")
 		(net 2 "3.3V")
@@ -222,7 +203,6 @@
 		(net 10 "5V_Out")
 		(net 11 "Pump_GND")
 	)
-
 	(wires
 		(wire (pts (xy 100 85) (xy 100 95)))
 		(wire (pts (xy 150 35) (xy 150 45)))
@@ -241,14 +221,12 @@
 		(wire (pts (xy 250 75) (xy 250 85)))
 		(wire (pts (xy 160 15) (xy 160 25)))
 	)
-
 	(junctions
 		(junction (at 100 90))
 		(junction (at 150 40))
 		(junction (at 50 80))
 		(junction (at 200 80))
 	)
-
 	(labels
 		(label "GND" (at 100 100 0))
 		(label "3.3V" (at 100 110 0))
@@ -260,17 +238,14 @@
 		(label "Battery_P+" (at 50 90 0))
 		(label "System_5V" (at 150 120 0))
 	)
-
 	(no_connects
 		(nc (pin "U1" "7"))
 		(nc (pin "U1" "8"))
 	)
-
 	(sheet_instances
 		(path "/"
 			(page "1")
 		)
 	)
-
 	(embedded_fonts no)
 )
