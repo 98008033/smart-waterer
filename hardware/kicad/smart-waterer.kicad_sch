@@ -12,20 +12,20 @@
 	)
 	(lib_symbols
 		(symbol "Device:R"
-			(pin "1" passive (at 0 0 0))
-			(pin "2" passive (at 0 0 0))
+			(pin "1" passive (at 0 0 0) (length 0))
+			(pin "2" passive (at 0 0 0) (length 0))
 		)
 		(symbol "Device:C"
-			(pin "1" passive (at 0 0 0))
-			(pin "2" passive (at 0 0 0))
+			(pin "1" passive (at 0 0 0) (length 0))
+			(pin "2" passive (at 0 0 0) (length 0))
 		)
 		(symbol "Device:D"
-			(pin "1" passive (at 0 0 0))
-			(pin "2" passive (at 0 0 0))
+			(pin "1" passive (at 0 0 0) (length 0))
+			(pin "2" passive (at 0 0 0) (length 0))
 		)
 		(symbol "Device:Fuse"
-			(pin "1" passive (at 0 0 0))
-			(pin "2" passive (at 0 0 0))
+			(pin "1" passive (at 0 0 0) (length 0))
+			(pin "2" passive (at 0 0 0) (length 0))
 		)
 	)
 	(components
