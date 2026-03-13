@@ -1,8 +1,26 @@
-KICAD_SCH_FILE_VERSION_20240108
-( kicad_sch_file
-  (version 20240108)
-  (generator kicad)
+(kicad_sch_file
+  (version 20250114)
+  (generator "eeschema")
+  (generator_version "9.0")
+  (uuid "5a74c180-b32f-4b77-92a3-89d75ec44c4d")
   (paper "A4")
+
+  (project
+    (name "smart-waterer")
+    (description "智能浇花机 v0.4（简化版）")
+  )
+
+  (sheet
+    (number 1)
+    (name "Smart Waterer v0.4")
+    (tstamps "00000000-0000-0000-0000-000000000000")
+    (title_block
+      (title "智能浇花机 v0.4（简化版）")
+      (date "2026-03-13")
+      (rev "v0.4")
+      (company "Smart Waterer Team")
+    )
+  )
 
   (lib_symbols
     (symbol "Device:R"
@@ -23,18 +41,6 @@ KICAD_SCH_FILE_VERSION_20240108
     )
   )
 
-  (sheet
-    (number 1)
-    (name "Smart Waterer v0.4")
-    (tstamps "00000000-0000-0000-0000-000000000000")
-    (title_block
-      (title "智能浇花机 v0.4（简化版）")
-      (date "2026-03-13")
-      (rev "v0.4")
-      (company "Smart Waterer Team")
-    )
-  )
-
   (components
     (symbol "U1" (lib_id "ESP32-C3-SuperMini")
       (at 100 80 0)
@@ -45,12 +51,6 @@ KICAD_SCH_FILE_VERSION_20240108
       (property "Value" "ESP32-C3-SuperMini" (at 95 85 0))
       (property "Footprint" "ESP32-C3-SuperMini" (at 95 90 0))
       (property "LCSC" "C2040789" (at 95 95 0))
-      (pin "1" (uuid "00000000-0000-0000-0000-000000000001"))
-      (pin "2" (uuid "00000000-0000-0000-0000-000000000002"))
-      (pin "3" (uuid "00000000-0000-0000-0000-000000000003"))
-      (pin "4" (uuid "00000000-0000-0000-0000-000000000004"))
-      (pin "5" (uuid "00000000-0000-0000-0000-000000000005"))
-      (pin "6" (uuid "00000000-0000-0000-0000-000000000006"))
     )
 
     (symbol "TH1" (lib_id "Device:R")
@@ -284,4 +284,12 @@ KICAD_SCH_FILE_VERSION_20240108
     "保险丝靠近电池正极"
     "v0.4 简化版：去掉 LED 和蜂鸣器，单节 18650+TP4056"
   )
+
+  (sheet_instances
+    (path "/"
+      (page "1")
+    )
+  )
+
+  (embedded_fonts no)
 )
