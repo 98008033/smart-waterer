@@ -1,0 +1,351 @@
+{
+  "message": "智能浇花机 - 嘉立创 EDA PCB 文件",
+  "version": "1.0",
+  "type": "pcb",
+  "pcb": {
+    "title": "智能浇花机 PCB v0.3",
+    "boardInfo": {
+      "width": 80,
+      "height": 60,
+      "layers": 2,
+      "thickness": 1.6,
+      "material": "FR-4",
+      "copperThickness": "1oz",
+      "solderMaskColor": "Green",
+      "silkscreenColor": "White"
+    },
+    "footprints": [
+      {
+        "name": "U1",
+        "value": "ESP32-C3-SuperMini",
+        "x": 40,
+        "y": 30,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "J1",
+        "value": "USB-C-16Pin",
+        "x": 10,
+        "y": 30,
+        "rotation": 90,
+        "layer": "top"
+      },
+      {
+        "name": "D1",
+        "value": "SMAJ5.0A",
+        "footprint": "DO-214AC",
+        "x": 25,
+        "y": 20,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "U2",
+        "value": "TP5100_Module",
+        "x": 25,
+        "y": 45,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "F1",
+        "value": "1812L110",
+        "footprint": "1812",
+        "x": 25,
+        "y": 60,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "U3",
+        "value": "MP1584_Module",
+        "x": 15,
+        "y": 75,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "U4",
+        "value": "AMS1117-3.3",
+        "footprint": "SOT-223",
+        "x": 35,
+        "y": 75,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "TH1",
+        "value": "NTC_10k",
+        "footprint": "R0805",
+        "x": 55,
+        "y": 20,
+        "rotation": 0,
+        "layer": "top",
+        "note": "飞线到电池"
+      },
+      {
+        "name": "R1",
+        "value": "10k",
+        "footprint": "R0805",
+        "x": 50,
+        "y": 15,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "C1",
+        "value": "100nF",
+        "footprint": "C0805",
+        "x": 60,
+        "y": 15,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "Q1",
+        "value": "AO4606",
+        "footprint": "SOIC-8",
+        "x": 65,
+        "y": 45,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "D2",
+        "value": "1N4148",
+        "footprint": "SOD-323",
+        "x": 70,
+        "y": 45,
+        "rotation": 90,
+        "layer": "top"
+      },
+      {
+        "name": "J2",
+        "value": "土壤湿度",
+        "footprint": "KF301-2P",
+        "x": 45,
+        "y": 5,
+        "rotation": 90,
+        "layer": "top"
+      },
+      {
+        "name": "J3",
+        "value": "水位检测",
+        "footprint": "KF301-2P",
+        "x": 55,
+        "y": 5,
+        "rotation": 90,
+        "layer": "top"
+      },
+      {
+        "name": "J4",
+        "value": "水泵",
+        "footprint": "KF301-2P",
+        "x": 75,
+        "y": 50,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "LED1",
+        "value": "LED_3mm",
+        "footprint": "LED-3mm",
+        "x": 55,
+        "y": 35,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "R2",
+        "value": "220R",
+        "footprint": "R0805",
+        "x": 50,
+        "y": 35,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "BZ1",
+        "value": "Buzzer",
+        "footprint": "Buzzer-3.3V",
+        "x": 65,
+        "y": 35,
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "H1",
+        "value": "Mounting_Hole",
+        "footprint": "MountingHole_3.2mm",
+        "x": 3,
+        "y": 3,
+        "rotation": 0,
+        "layer": "multi"
+      },
+      {
+        "name": "H2",
+        "value": "Mounting_Hole",
+        "footprint": "MountingHole_3.2mm",
+        "x": 77,
+        "y": 3,
+        "rotation": 0,
+        "layer": "multi"
+      },
+      {
+        "name": "H3",
+        "value": "Mounting_Hole",
+        "footprint": "MountingHole_3.2mm",
+        "x": 3,
+        "y": 57,
+        "rotation": 0,
+        "layer": "multi"
+      },
+      {
+        "name": "H4",
+        "value": "Mounting_Hole",
+        "footprint": "MountingHole_3.2mm",
+        "x": 77,
+        "y": 57,
+        "rotation": 0,
+        "layer": "multi"
+      }
+    ],
+    "traces": [
+      {
+        "net": "USB_5V",
+        "width": "1.0mm",
+        "path": [
+          {"x": 10, "y": 25},
+          {"x": 25, "y": 25},
+          {"x": 25, "y": 40}
+        ]
+      },
+      {
+        "net": "Battery_P+",
+        "width": "1.0mm",
+        "path": [
+          {"x": 25, "y": 50},
+          {"x": 25, "y": 58},
+          {"x": 25, "y": 65}
+        ]
+      },
+      {
+        "net": "System_5V",
+        "width": "1.0mm",
+        "path": [
+          {"x": 25, "y": 68},
+          {"x": 15, "y": 68},
+          {"x": 15, "y": 72}
+        ]
+      },
+      {
+        "net": "3.3V",
+        "width": "0.5mm",
+        "path": [
+          {"x": 35, "y": 70},
+          {"x": 40, "y": 70},
+          {"x": 40, "y": 35}
+        ]
+      },
+      {
+        "net": "GND",
+        "width": "1.0mm",
+        "layer": "bottom",
+        "path": [
+          {"x": 10, "y": 35},
+          {"x": 70, "y": 35},
+          {"x": 70, "y": 55}
+        ]
+      }
+    ],
+    "planes": [
+      {
+        "layer": "bottom",
+        "net": "GND",
+        "type": "fill",
+        "clearance": "0.3mm"
+      }
+    ],
+    "keepout": [
+      {
+        "name": "ESP32_Antenna",
+        "x": 45,
+        "y": 25,
+        "width": 10,
+        "height": 8,
+        "layer": "all",
+        "note": "ESP32 天线区域禁止铺铜"
+      }
+    ],
+    "silkscreen": [
+      {
+        "type": "text",
+        "text": "Smart Waterer v0.3",
+        "x": 40,
+        "y": 30,
+        "size": "1mm",
+        "layer": "top"
+      },
+      {
+        "type": "text",
+        "text": "NTC→电池",
+        "x": 55,
+        "y": 18,
+        "size": "0.8mm",
+        "layer": "top"
+      },
+      {
+        "type": "text",
+        "text": "5V",
+        "x": 15,
+        "y": 80,
+        "size": "0.8mm",
+        "layer": "top"
+      },
+      {
+        "type": "text",
+        "text": "3.3V",
+        "x": 35,
+        "y": 80,
+        "size": "0.8mm",
+        "layer": "top"
+      }
+    ],
+    "designRules": {
+      "trackWidth": {
+        "min": "0.3mm",
+        "power": "1.0mm",
+        "signal": "0.3mm"
+      },
+      "clearance": {
+        "track": "0.2mm",
+        "pad": "0.2mm",
+        "via": "0.2mm"
+      },
+      "via": {
+        "size": "0.6mm",
+        "hole": "0.3mm"
+      },
+      "hole": {
+        "min": "0.3mm"
+      }
+    },
+    "manufacturing": {
+      "pcbThickness": "1.6mm",
+      "copperThickness": "1oz",
+      "solderMaskColor": "Green",
+      "silkscreenColor": "White",
+      "surfaceFinish": "HASL",
+      "quantity": 5
+    },
+    "notes": [
+      "NTC 热敏电阻需飞线到电池表面",
+      "电源走线宽度≥1.0mm",
+      "ESP32 天线下方禁止铺铜（已设置 keepout）",
+      "底部完整 GND 铺铜",
+      "4 个角 M3 安装孔",
+      "所有元件放置在顶层"
+    ]
+  }
+}

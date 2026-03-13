@@ -1,0 +1,276 @@
+{
+  "message": "智能浇花机 - 嘉立创 EDA 工程文件",
+  "version": "1.0",
+  "type": "schematic",
+  "schematic": {
+    "title": "智能浇花机 v0.3（安全整改版）",
+    "description": "ESP32-C3 智能浇花机 - 含 NTC 温度监控/TVS 浪涌保护/保险丝过流保护",
+    "boardInfo": {
+      "width": 80,
+      "height": 60,
+      "layers": 2,
+      "thickness": 1.6
+    },
+    "components": [
+      {
+        "name": "U1",
+        "value": "ESP32-C3-SuperMini",
+        "footprint": "ESP32-C3-SuperMini",
+        "x": 200,
+        "y": 150,
+        "rotation": 0
+      },
+      {
+        "name": "TH1",
+        "value": "NTC 10kΩ B3950",
+        "footprint": "R0805",
+        "x": 350,
+        "y": 100,
+        "rotation": 0,
+        "note": "贴电池表面"
+      },
+      {
+        "name": "R1",
+        "value": "10kΩ",
+        "footprint": "R0805",
+        "x": 340,
+        "y": 80,
+        "rotation": 90
+      },
+      {
+        "name": "C1",
+        "value": "100nF",
+        "footprint": "C0805",
+        "x": 360,
+        "y": 120,
+        "rotation": 0
+      },
+      {
+        "name": "D1",
+        "value": "SMAJ5.0A",
+        "footprint": "DO-214AC",
+        "x": 100,
+        "y": 50,
+        "rotation": 90,
+        "note": "TVS 浪涌保护"
+      },
+      {
+        "name": "U2",
+        "value": "TP5100",
+        "footprint": "TP5100_Module",
+        "x": 100,
+        "y": 150,
+        "rotation": 0
+      },
+      {
+        "name": "F1",
+        "value": "1812L110",
+        "footprint": "1812",
+        "x": 100,
+        "y": 220,
+        "rotation": 0,
+        "note": "1A 自恢复保险丝"
+      },
+      {
+        "name": "U3",
+        "value": "MP1584",
+        "footprint": "MP1584_Module",
+        "x": 50,
+        "y": 280,
+        "rotation": 0
+      },
+      {
+        "name": "U4",
+        "value": "AMS1117-3.3",
+        "footprint": "SOT-223",
+        "x": 150,
+        "y": 280,
+        "rotation": 0
+      },
+      {
+        "name": "J1",
+        "value": "USB-C",
+        "footprint": "USB-C-16Pin",
+        "x": 100,
+        "y": 20,
+        "rotation": 0
+      },
+      {
+        "name": "Q1",
+        "value": "AO4606",
+        "footprint": "SOIC-8",
+        "x": 300,
+        "y": 250,
+        "rotation": 0
+      },
+      {
+        "name": "D2",
+        "value": "1N4148",
+        "footprint": "SOD-323",
+        "x": 320,
+        "y": 250,
+        "rotation": 90,
+        "note": "续流二极管"
+      },
+      {
+        "name": "J2",
+        "value": "土壤湿度",
+        "footprint": "KF301-2P",
+        "x": 250,
+        "y": 50,
+        "rotation": 90
+      },
+      {
+        "name": "J3",
+        "value": "水位检测",
+        "footprint": "KF301-2P",
+        "x": 280,
+        "y": 50,
+        "rotation": 90
+      },
+      {
+        "name": "J4",
+        "value": "水泵",
+        "footprint": "KF301-2P",
+        "x": 350,
+        "y": 250,
+        "rotation": 0
+      },
+      {
+        "name": "LED1",
+        "value": "LED 3mm",
+        "footprint": "LED-3mm",
+        "x": 250,
+        "y": 200,
+        "rotation": 0
+      },
+      {
+        "name": "R2",
+        "value": "220Ω",
+        "footprint": "R0805",
+        "x": 230,
+        "y": 200,
+        "rotation": 0
+      },
+      {
+        "name": "BZ1",
+        "value": "Buzzer 3.3V",
+        "footprint": "Buzzer-3.3V",
+        "x": 280,
+        "y": 200,
+        "rotation": 0
+      }
+    ],
+    "nets": [
+      {
+        "name": "USB_5V",
+        "connections": [
+          "J1:VBUS",
+          "D1:1",
+          "U2:IN+"
+        ]
+      },
+      {
+        "name": "GND",
+        "connections": [
+          "J1:GND",
+          "D1:2",
+          "U2:GND",
+          "C1:2",
+          "TH1:2",
+          "U3:GND",
+          "U4:GND"
+        ]
+      },
+      {
+        "name": "3.3V",
+        "connections": [
+          "U4:VOUT",
+          "U1:3V3",
+          "R1:1",
+          "J2:VCC",
+          "J3:VCC"
+        ]
+      },
+      {
+        "name": "NTC_Temp",
+        "connections": [
+          "R1:2",
+          "TH1:1",
+          "C1:1",
+          "U1:GPIO3"
+        ]
+      },
+      {
+        "name": "Battery_Protection",
+        "connections": [
+          "U2:OUT+",
+          "F1:1"
+        ]
+      },
+      {
+        "name": "System_5V",
+        "connections": [
+          "F1:2",
+          "U3:VIN",
+          "J4:1"
+        ]
+      },
+      {
+        "name": "Pump_Control",
+        "connections": [
+          "U1:GPIO1",
+          "Q1:G"
+        ]
+      },
+      {
+        "name": "Soil_Moisture",
+        "connections": [
+          "J2:AO",
+          "U1:GPIO0"
+        ]
+      },
+      {
+        "name": "Water_Level",
+        "connections": [
+          "J3:OUT",
+          "U1:GPIO2"
+        ]
+      },
+      {
+        "name": "LED",
+        "connections": [
+          "U1:GPIO4",
+          "R2:1"
+        ]
+      },
+      {
+        "name": "Buzzer",
+        "connections": [
+          "U1:GPIO5",
+          "BZ1:+"
+        ]
+      }
+    ],
+    "designRules": {
+      "trackWidth": {
+        "power": "1.0mm",
+        "signal": "0.3mm"
+      },
+      "clearance": "0.2mm",
+      "viaSize": "0.6mm",
+      "viaHole": "0.3mm"
+    },
+    "layers": {
+      "top": "Signal + Components",
+      "bottom": "GND Plane"
+    },
+    "notes": [
+      "NTC 热敏电阻需贴电池表面，使用导热胶固定",
+      "电源走线宽度≥1.0mm",
+      "ESP32 天线下方禁止铺铜",
+      "TVS 尽量靠近 USB 入口",
+      "保险丝靠近电池正极"
+    ]
+  }
+}
