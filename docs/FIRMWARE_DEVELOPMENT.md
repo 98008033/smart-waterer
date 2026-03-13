@@ -2,6 +2,8 @@
 
 **ESP32-C3 固件开发完整教程**
 
+**IoT 平台：** ThingsCloud（免费）⭐
+
 ---
 
 ## 1. 开发环境搭建
@@ -59,8 +61,8 @@ chmod +x arduino-ide_latest_Linux_64bit.AppImage
 1. 点击"工具" → "管理库"
 2. 搜索并安装以下库：
 
-- PubSubClient (MQTT 客户端)
-- ArduinoJson (JSON 解析)
+- PubSubClient by Nick O'Leary (MQTT 客户端)
+- ArduinoJson by Benoit Blanchon (JSON 解析)
 - WiFi (ESP32 自带)
 - HTTPClient (HTTP 请求)
 - Update (OTA 更新)
@@ -68,7 +70,25 @@ chmod +x arduino-ide_latest_Linux_64bit.AppImage
 
 **⏰ 耗时：** 5 分钟
 
-### 1.4 验证安装
+### 1.4 ThingsCloud 配置
+
+**在开始写代码前，先完成：**
+
+1. 注册 ThingsCloud 账号
+   - https://console.thingscloud.xyz
+   - 微信扫码登录
+
+2. 获取私钥
+   - 控制台 → 密钥管理
+   - 复制私钥（保存好）
+
+3. 创建主题
+   - 我的主题 → 创建主题
+   - 主题名：`waterer_001`
+
+**⏰ 耗时：** 3 分钟
+
+### 1.5 验证安装
 
 ```
 1. 点击"工具" → "开发板" → "ESP32 Arduino"
@@ -77,6 +97,79 @@ chmod +x arduino-ide_latest_Linux_64bit.AppImage
 4. 点击"上传"按钮
 5. 编译成功说明安装正确
 ```
+
+**⏰ 耗时：** 5 分钟
+
+---
+
+## 2. ThingsCloud MQTT 示例
+
+### 2.1 完整代码
+
+**文件：** `firmware/main/thingscloud_mqtt.ino`
+
+```cpp
+#include <WiFi.h>
+#include <PubSubClient.h>
+
+// WiFi 配置
+const char* WIFI_SSID = "你的 WiFi 名称";
+const char* WIFI_PASS = "你的 WiFi 密码";
+
+// ThingsCloud 配置
+const char* MQTT_SERVER = "bemfa.com";
+const int MQTT_PORT = 1883;
+const char* MQTT_USER = "你的私钥";  // 控制台 → 密钥管理
+const char* DEVICE_TOPIC = "waterer_001";  // 你的主题
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+void setup() {
+    Serial.begin(115200);
+    WiFi.begin(WIFI_SSID, WIFI_PASS);
+    
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    
+    client.setServer(MQTT_SERVER, MQTT_PORT);
+    connectMQTT();
+}
+
+void loop() {
+    if (!client.connected()) connectMQTT();
+    client.loop();
+    
+    // 上报数据
+    char msg[50];
+    sprintf(msg, "soil_moisture:%d", analogRead(3));
+    client.publish(DEVICE_TOPIC, msg);
+    
+    delay(60000);  // 1 分钟
+}
+
+void connectMQTT() {
+    String clientId = "ESP32_" + String(WiFi.macAddress());
+    while (!client.connected()) {
+        if (client.connect(clientId.c_str(), MQTT_USER, "")) {
+            client.subscribe(DEVICE_TOPIC);
+        } else {
+            delay(5000);
+        }
+    }
+}
+```
+
+**⏰ 耗时：** 10 分钟
+
+### 2.2 测试
+
+1. 上传代码到 ESP32
+2. 打开串口监视器（115200）
+3. 查看 ThingsCloud 控制台
+4. 应该看到设备上报的数据
 
 **⏰ 耗时：** 5 分钟
 

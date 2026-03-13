@@ -1,204 +1,260 @@
-# 微信小程序开发指南 📱
+# 📱 微信小程序开发指南
 
-**基于腾讯云 IoT + 云开发模板**
-
----
-
-## 1. 准备工作
-
-### 1.1 注册微信小程序
-
-```
-1. 访问：https://mp.weixin.qq.com
-2. 点击"立即注册"
-3. 选择"小程序"
-4. 填写信息：
-   - 邮箱
-   - 密码
-   - 验证码
-5. 激活邮箱
-6. 信息登记（个人主体）
-7. 完成注册
-```
-
-**⏰ 耗时：** 10 分钟
-
-### 1.2 开通云开发
-
-```
-1. 登录小程序后台
-2. 点击"云开发"
-3. 开通云开发
-4. 创建环境：
-   - 环境名称：smart-waterer
-   - 计费模式：免费版
-5. 完成创建
-```
-
-**⏰ 耗时：** 5 分钟
-
-### 1.3 下载微信开发者工具
-
-**Windows:**
-```
-1. 访问：https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
-2. 下载 Windows 稳定版
-3. 运行安装程序
-4. 安装完成
-```
-
-**Mac:**
-```
-1. 访问：https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
-2. 下载 Mac 稳定版
-3. 拖拽到应用程序文件夹
-4. 打开微信开发者工具
-```
-
-**⏰ 耗时：** 10 分钟
+**最后更新：** 2026-03-13  
+**IoT 平台：** ThingsCloud
 
 ---
 
-## 2. 使用 IoT 模板
+## 🎯 方案选择
 
-### 2.1 下载模板
+### 方案 1：云开发 + ThingsCloud API ⭐ 推荐
 
-**方式一：GitHub 下载**
-```
-1. 访问：https://github.com/wechat-miniprogram/miniprogram-demo
-2. 搜索"IoT"
-3. 下载 IoT 模板
-4. 解压到本地
-```
+**优点：**
+- ✅ 开发简单
+- ✅ 无需后端服务器
+- ✅ 免费额度够用
+- ✅ 直接调用 ThingsCloud API
 
-**方式二：云开发控制台下载**
-```
-1. 登录云开发控制台
-2. 点击"模板市场"
-3. 搜索"IoT"
-4. 点击"使用模板"
-```
+**缺点：**
+- ⚠️ 依赖微信云开发
 
-**⏰ 耗时：** 5 分钟
+**成本：** ¥0（免费额度内）
 
-### 2.2 导入项目
+### 方案 2：自建后端 + MQTT
 
-```
+**优点：**
+- ✅ 完全控制
+- ✅ 功能强大
+
+**缺点：**
+- ⚠️ 需要服务器
+- ⚠️ 开发复杂
+
+**成本：** ¥24/月（服务器）
+
+---
+
+## 🚀 方案 1：云开发快速接入
+
+### 步骤 1：创建小程序
+
+1. 注册微信小程序账号
+   - https://mp.weixin.qq.com
+2. 下载微信开发者工具
+   - https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
+3. 创建小程序项目
+   - AppID：使用测试号或正式号
+   - 模板：选择"云开发模板"
+
+### 步骤 2：启用云开发
+
 1. 打开微信开发者工具
-2. 点击"+"号
-3. 选择"导入项目"
-4. 选择模板目录
-5. 填写 AppID（小程序的 AppID）
-6. 点击"导入"
-```
+2. 点击 **云开发** 按钮
+3. 创建云开发环境
+   - 环境名称：`waterer-dev`
+   - 版本：免费版
+4. 记录环境 ID
 
-**⏰ 耗时：** 3 分钟
+### 步骤 3：配置小程序
 
-### 2.3 配置云开发
-
-```
-1. 打开 project.config.json
-2. 修改 cloudfunctionRoot 和 miniprogramRoot
-3. 打开 utils/config.js
-4. 修改环境 ID：
-   module.exports = {
-     envId: 'smart-waterer-xxx',
-     region: 'ap-guangzhou'
-   }
-```
-
-**⏰ 耗时：** 5 分钟
-
----
-
-## 3. 配置腾讯云 IoT
-
-### 3.1 修改配置文件
-
-**文件：** `utils/config.js`
-
-```javascript
-module.exports = {
-  // 云开发环境
-  envId: 'smart-waterer-xxx',
-  region: 'ap-guangzhou',
-  
-  // 腾讯云 IoT 配置
-  iot: {
-    productId: 'ABC123456',  // 替换为你的 ProductID
-    deviceName: 'waterer-001'  // 替换为你的设备名
+**project.config.json：**
+```json
+{
+  "cloudfunctionRoot": "cloudfunctions/",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "setting": {
+    "es6": true,
+    "minified": true
   },
-  
-  // MQTT 配置
-  mqtt: {
-    host: 'ABC123456.iotcloud.tencentdevices.com',
-    port: 8883,
-    clientId: 'ABC123456waterer-001'
+  "cloudbaseRoot": "cloudbaserc.json"
+}
+```
+
+### 步骤 4：创建云函数
+
+**目录结构：**
+```
+cloudfunctions/
+└── controlDevice/
+    ├── index.js
+    └── package.json
+```
+
+**index.js：**
+```javascript
+const mqtt = require('mqtt');
+
+exports.main = async (event, context) => {
+    const { action, value } = event;
+    
+    // 连接 ThingsCloud MQTT
+    const client = mqtt.connect('mqtt://bemfa.com:1883');
+    
+    return new Promise((resolve, reject) => {
+        client.on('connect', () => {
+            console.log('MQTT 已连接');
+            
+            // 发布控制指令
+            const topic = 'waterer_001';
+            const message = `${action}:${value}`;
+            
+            client.publish(topic, message, (err) => {
+                client.end();
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve({
+                        success: true,
+                        message: `已发送：${message}`
+                    });
+                }
+            });
+        });
+        
+        client.on('error', (err) => {
+            reject(err);
+        });
+    });
+};
+```
+
+**package.json：**
+```json
+{
+  "name": "controlDevice",
+  "version": "1.0.0",
+  "description": "控制设备云函数",
+  "main": "index.js",
+  "dependencies": {
+    "mqtt": "^5.0.0"
   }
 }
 ```
 
-**⏰ 耗时：** 5 分钟
+### 步骤 5：小程序前端代码
 
-### 3.2 获取设备信息
+**pages/index/index.js：**
+```javascript
+Page({
+  data: {
+    soilMoisture: 0,
+    batteryLevel: 0,
+    waterLevel: false,
+    pumpState: false
+  },
 
-**从腾讯云 IoT 控制台获取：**
+  onLoad() {
+    // 加载设备状态
+    this.loadDeviceStatus();
+    // 定时刷新（30 秒）
+    setInterval(() => this.loadDeviceStatus(), 30000);
+  },
+
+  // 加载设备状态
+  async loadDeviceStatus() {
+    try {
+      // 从 ThingsCloud 获取最新数据
+      const res = await wx.cloud.callFunction({
+        name: 'getDeviceStatus'
+      });
+      
+      if (res.result.success) {
+        this.setData({
+          soilMoisture: res.result.data.soil_moisture,
+          batteryLevel: res.result.data.battery_level,
+          waterLevel: res.result.data.water_level
+        });
+      }
+    } catch (err) {
+      console.error('加载状态失败:', err);
+    }
+  },
+
+  // 控制水泵
+  async controlPump(action) {
+    wx.showLoading({ title: '执行中...' });
+    
+    try {
+      const res = await wx.cloud.callFunction({
+        name: 'controlDevice',
+        data: {
+          action: 'water_switch',
+          value: action ? 1 : 0
+        }
+      });
+      
+      if (res.result.success) {
+        wx.showToast({
+          icon: 'success',
+          title: action ? '已开启浇水' : '已停止浇水'
+        });
+        
+        this.setData({ pumpState: action });
+      }
+    } catch (err) {
+      wx.showToast({
+        icon: 'none',
+        title: '操作失败'
+      });
+    } finally {
+      wx.hideLoading();
+    }
+  },
+
+  // 一键浇水
+  async oneClickWater() {
+    await this.controlPump(true);
+    
+    // 30 秒后自动关闭
+    setTimeout(() => {
+      this.controlPump(false);
+    }, 30000);
+  }
+});
 ```
-1. 访问：https://console.cloud.tencent.com/iotexplorer
-2. 进入产品 → 设备列表
-3. 点击设备名称
-4. 复制：
-   - ProductID
-   - DeviceName
-   - DeviceSecret
-```
 
----
-
-## 4. 界面定制
-
-### 4.1 修改首页
-
-**文件：** `pages/index/index.wxml`
-
+**pages/index/index.wxml：**
 ```xml
 <view class="container">
-  <!-- 标题 -->
   <view class="header">
-    <text class="title">智能浇花机</text>
+    <text class="title">🌱 智能浇花机</text>
   </view>
-  
-  <!-- 数据显示 -->
-  <view class="data-section">
-    <view class="data-item">
+
+  <!-- 状态卡片 -->
+  <view class="status-card">
+    <view class="status-item">
       <text class="label">土壤湿度</text>
       <text class="value">{{soilMoisture}}%</text>
+      <progress percent="{{soilMoisture}}" color="#4CAF50" />
     </view>
-    <view class="data-item">
+
+    <view class="status-item">
       <text class="label">电池电量</text>
       <text class="value">{{batteryLevel}}%</text>
+      <progress percent="{{batteryLevel}}" color="#2196F3" />
     </view>
-    <view class="data-item">
+
+    <view class="status-item">
       <text class="label">水箱水位</text>
       <text class="value">{{waterLevel ? '正常' : '缺水'}}</text>
     </view>
   </view>
-  
+
   <!-- 控制按钮 -->
   <view class="control-section">
-    <button class="btn" bindtap="toggleWater">
-      {{isWatering ? '停止浇水' : '开始浇水'}}
+    <button class="btn-water" bindtap="oneClickWater">
+      💧 一键浇水
+    </button>
+
+    <button class="btn-switch" bindtap="controlPump" data-action="{{!pumpState}}">
+      {{pumpState ? '停止浇水' : '开启浇水'}}
     </button>
   </view>
 </view>
 ```
 
-**⏰ 耗时：** 10 分钟
-
-### 4.2 修改样式
-
-**文件：** `pages/index/index.wxss`
-
+**pages/index/index.wxss：**
 ```css
 .container {
   padding: 20rpx;
@@ -206,22 +262,24 @@ module.exports = {
 
 .header {
   text-align: center;
-  margin-bottom: 40rpx;
+  padding: 40rpx 0;
 }
 
 .title {
-  font-size: 40rpx;
+  font-size: 36rpx;
   font-weight: bold;
 }
 
-.data-section {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 40rpx;
+.status-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
 }
 
-.data-item {
-  text-align: center;
+.status-item {
+  margin-bottom: 30rpx;
 }
 
 .label {
@@ -231,279 +289,185 @@ module.exports = {
 
 .value {
   font-size: 48rpx;
-  color: #07c160;
   font-weight: bold;
+  color: #333;
+  float: right;
 }
 
 .control-section {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
 }
 
-.btn {
-  background-color: #07c160;
+.btn-water {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  border: none;
+  border-radius: 20rpx;
+  padding: 30rpx;
   font-size: 32rpx;
-  padding: 20rpx 60rpx;
+}
+
+.btn-switch {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  font-size: 32rpx;
 }
 ```
 
-**⏰ 耗时：** 10 分钟
+---
 
-### 4.3 修改逻辑
+## 📊 方案 2：自建后端（可选）
 
-**文件：** `pages/index/index.js`
+### 架构
 
+```
+小程序 ←→ Node.js 后端 ←→ ThingsCloud MQTT
+```
+
+### Node.js 后端代码
+
+**server.js：**
 ```javascript
-const app = getApp()
-const config = require('../../utils/config')
+const express = require('express');
+const mqtt = require('mqtt');
+const cors = require('cors');
 
-Page({
-  data: {
-    soilMoisture: 0,
-    batteryLevel: 0,
-    waterLevel: false,
-    isWatering: false
-  },
-  
-  onLoad() {
-    this.connectMQTT()
-  },
-  
-  // 连接 MQTT
-  connectMQTT() {
-    const mqtt = require('../../utils/mqtt')
-    mqtt.connect({
-      host: config.mqtt.host,
-      port: config.mqtt.port,
-      clientId: config.mqtt.clientId,
-      onSuccess: () => {
-        console.log('MQTT connected')
-        this.subscribe()
-      }
-    })
-  },
-  
-  // 订阅主题
-  subscribe() {
-    const mqtt = require('../../utils/mqtt')
-    const topic = `${config.iot.productId}/${config.iot.deviceName}/s+/+`
-    mqtt.subscribe(topic, (message) => {
-      this.handleMessage(message)
-    })
-  },
-  
-  // 处理消息
-  handleMessage(message) {
-    const data = JSON.parse(message)
-    this.setData({
-      soilMoisture: data.soil_moisture || 0,
-      batteryLevel: data.battery_level || 0,
-      waterLevel: data.water_level || false
-    })
-  },
-  
-  // 切换浇水
-  toggleWater() {
-    const mqtt = require('../../utils/mqtt')
-    const topic = `${config.iot.productId}/${config.iot.deviceName}/data/update`
-    const message = {
-      water_switch: !this.data.isWatering
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// 连接 MQTT
+const client = mqtt.connect('mqtt://bemfa.com:1883');
+
+let deviceStatus = {};
+
+client.on('connect', () => {
+    console.log('MQTT 已连接');
+    client.subscribe('waterer_001');
+});
+
+client.on('message', (topic, message) => {
+    // 解析设备上报数据
+    const data = parseMessage(message.toString());
+    deviceStatus = data;
+    console.log('设备状态:', data);
+});
+
+// API: 获取设备状态
+app.get('/api/status', (req, res) => {
+    res.json({
+        success: true,
+        data: deviceStatus
+    });
+});
+
+// API: 控制设备
+app.post('/api/control', (req, res) => {
+    const { action, value } = req.body;
+    const message = `${action}:${value}`;
+    
+    client.publish('waterer_001', message);
+    
+    res.json({
+        success: true,
+        message: `已发送：${message}`
+    });
+});
+
+app.listen(3000, () => {
+    console.log('服务器运行在 http://localhost:3000');
+});
+
+function parseMessage(msg) {
+    // 解析简化格式：soil_moisture:65,battery_level:85
+    const data = {};
+    const pairs = msg.split(',');
+    pairs.forEach(pair => {
+        const [key, value] = pair.split(':');
+        data[key] = isNaN(value) ? value : Number(value);
+    });
+    return data;
+}
+```
+
+---
+
+## 🔗 ThingsCloud HTTP API
+
+如果不想用 MQTT，可以用 HTTP API：
+
+### 推送数据
+
+```http
+POST https://api.thingscloud.xyz/push
+Content-Type: application/json
+
+{
+    "topic": "waterer_001",
+    "data": "soil_moisture:65,battery_level:85"
+}
+```
+
+### 获取最新数据
+
+```http
+GET https://api.thingscloud.xyz/pull?topic=waterer_001
+```
+
+**响应：**
+```json
+{
+    "status": 200,
+    "msg": "ok",
+    "data": {
+        "soil_moisture": "65",
+        "battery_level": "85"
     }
-    mqtt.publish(topic, JSON.stringify(message))
-    this.setData({
-      isWatering: !this.data.isWatering
-    })
-  }
-})
-```
-
-**⏰ 耗时：** 20 分钟
-
----
-
-## 5. 测试与调试
-
-### 5.1 模拟器测试
-
-```
-1. 微信开发者工具 → 模拟器
-2. 查看界面显示
-3. 点击按钮测试
-4. 查看控制台输出
-```
-
-**⏰ 耗时：** 10 分钟
-
-### 5.2 真机测试
-
-```
-1. 点击"预览"
-2. 扫码打开小程序
-3. 测试各项功能
-4. 检查数据显示
-```
-
-**⏰ 耗时：** 10 分钟
-
-### 5.3 常见问题
-
-| 问题 | 原因 | 解决方案 |
-|------|------|---------|
-| 无法连接 MQTT | 配置错误 | 检查 ProductID 和设备信息 |
-| 数据显示 0 | 设备未上报 | 检查设备是否在线 |
-| 按钮无响应 | 代码错误 | 查看控制台报错 |
-| 样式错乱 | WXSS 错误 | 检查样式文件 |
-
----
-
-## 6. 提交审核
-
-### 6.1 准备材料
-
-```
-- 小程序截图（5 张）
-- 功能介绍（100 字内）
-- 测试账号（如需登录）
-- 隐私政策链接
-```
-
-### 6.2 提交流程
-
-```
-1. 微信开发者工具 → 上传
-2. 填写版本号
-3. 填写版本说明
-4. 登录小程序后台
-5. 版本管理 → 提交审核
-6. 填写审核信息
-7. 提交
-```
-
-**审核时间：** 1-3 天
-
----
-
-## 7. 发布上线
-
-### 7.1 发布流程
-
-```
-1. 审核通过后
-2. 小程序后台 → 版本管理
-3. 点击"提交发布"
-4. 确认发布
-5. 等待发布完成
-```
-
-**⏰ 耗时：** 5 分钟
-
-### 7.2 推广分享
-
-```
-- 生成小程序码
-- 分享给朋友
-- 发布到朋友圈
-- 添加到我的小程序
-```
-
----
-
-## 8. 进阶功能
-
-### 8.1 添加图表
-
-```javascript
-// 使用 ECharts for Weixin
-const ec = require('../../components/ec-canvas/echarts')
-
-function initChart(canvas, width, height) {
-  const chart = ec.init(canvas, null, {
-    width: width,
-    height: height
-  })
-  
-  const option = {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [{
-      data: [820, 932, 901, 934, 1290, 1330, 1320],
-      type: 'line'
-    }]
-  }
-  
-  chart.setOption(option)
-  return chart
-}
-```
-
-### 8.2 添加通知
-
-```javascript
-// 订阅消息
-wx.requestSubscribeMessage({
-  tmplIds: ['TEMPLATE_ID'],
-  success(res) {
-    if (res.errMsg === 'requestSubscribeMessage:ok') {
-      console.log('订阅成功')
-    }
-  }
-})
-```
-
-### 8.3 添加历史记录
-
-```javascript
-// 云函数查询历史记录
-const cloud = require('wx-server-sdk')
-cloud.init()
-
-exports.main = async (event, context) => {
-  const db = cloud.database()
-  const result = await db.collection('water_records')
-    .where({
-      deviceId: event.deviceId
-    })
-    .orderBy('timestamp', 'desc')
-    .limit(10)
-    .get()
-  
-  return result.data
 }
 ```
 
 ---
 
-## 9. 完整项目结构
+## 🎨 UI 设计建议
 
+### 配色方案
+
+```css
+主色：#4CAF50（绿色 - 植物）
+辅色：#2196F3（蓝色 - 水）
+警告：#FF5722（橙色 - 缺水/低电）
 ```
-smart-waterer-miniprogram/
-├── app.js                    # 小程序入口
-├── app.json                  # 小程序配置
-├── app.wxss                  # 全局样式
-├── project.config.json       # 项目配置
-├── pages/
-│   └── index/
-│       ├── index.wxml       # 首页界面
-│       ├── index.wxss       # 首页样式
-│       ├── index.js         # 首页逻辑
-│       └── index.json       # 首页配置
-├── utils/
-│   ├── config.js            # 配置文件
-│   ├── mqtt.js              # MQTT 客户端
-│   └── util.js              # 工具函数
-├── components/              # 组件目录
-│   └── ec-canvas/          # ECharts 组件
-└── cloudfunctions/         # 云函数目录
-    └── getHistory/         # 获取历史记录
-```
+
+### 图标推荐
+
+- 💧 浇水
+- 🌱 植物
+- 🔋 电池
+- 📦 水箱
+- ⏰ 定时
 
 ---
 
-**祝你开发顺利！** 🚀
+## 📝 下一步
 
-*最后更新：2026-03-12*
+1. **完善云函数** - 添加错误处理
+2. **优化 UI** - 美化界面
+3. **添加功能** - 定时设置、历史记录
+4. **测试发布** - 提交审核
+
+---
+
+## 📚 参考资料
+
+- [微信小程序官方文档](https://developers.weixin.qq.com/miniprogram/dev/framework/)
+- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+- [ThingsCloud API](https://docs.bemfa.com)
+
+---
+
+*最后更新：2026-03-13*

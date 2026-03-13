@@ -1,243 +1,203 @@
-# 智能浇花机系统 🌱
+# 🌱 智能浇花机
 
-[![Status](https://img.shields.io/badge/status-in%20progress-yellow)]()
-[![License](https://img.shields.io/badge/license-MIT-blue)]()
-[![ESP32-C3](https://img.shields.io/badge/chip-ESP32--C3-blue)]()
+**基于 ESP32 + ThingsCloud 的 IoT 智能浇花系统**
 
-基于 **ESP32-C3** 的智能家居浇花系统，支持 **WiFi 远程控制** + **土壤湿度监测** + **自动浇水** + **微信小程序**。
-
----
-
-## ✨ 核心特性
-
-| 特性 | 说明 |
-|------|------|
-| 🌱 **自动浇水** | 定时触发 / 土壤湿度触发 |
-| 📱 **微信小程序** | 腾讯云 IoT + 云开发模板 |
-| 🔋 **电池供电** | 18650×2，30 天续航 |
-| ☁️ **云平台** | 腾讯云 IoT 公共实例（免费） |
-| 🔄 **OTA 更新** | 远程固件升级，断点续传 |
-| 💰 **低成本** | 硬件成本 ¥197，云服务 ¥0/月 |
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![ESP32](https://img.shields.io/badge/chip-ESP32--C3-green.svg)
+![IoT](https://img.shields.io/badge/platform-ThingsCloud-yellow.svg)
 
 ---
 
-## 📋 项目状态
+## 🎯 项目简介
 
-| 阶段 | 状态 | 时间 |
-|------|------|------|
-| 需求分析 | ✅ 已完成 | 2026-03-12 |
-| 技术调研 | ✅ 已完成 | 2026-03-12 |
-| IoT 平台选型 | ✅ 已完成 | 2026-03-12 |
-| 硬件设计 | ⏳ 进行中 | 2026-03-12 ~ 04-02 |
-| 固件开发 | ⏳ 待开始 | 2026-03-15 ~ 03-21 |
-| 小程序开发 | ⏳ 待开始 | 2026-03-22 ~ 03-26 |
-| 测试验收 | ⏳ 待开始 | 2026-04-03 ~ 04-08 |
+智能浇花机是一个低成本的 IoT 智能灌溉系统，可以：
+
+- 📊 **实时监测** 土壤湿度、电池电量、水箱水位
+- 📱 **远程控制** 手机 APP/微信小程序控制浇水
+- ⏰ **自动浇水** 定时或根据湿度自动灌溉
+- 🔋 **电池供电** 18650 锂电池，续航 30 天+
+- ☁️ **云平台** ThingsCloud 免费 IoT 平台
+
+**成本：** ¥200（自制）  
+**开发周期：** 2 周  
+**难度：** ⭐⭐⭐ 中等
 
 ---
 
-## 🚀 快速开始
+## 📸 效果预览
 
-### 方式一：硬件制作（推荐）
-
-```bash
-# 1. 采购元件（约¥197）
-- ESP32-C3 SuperMini    ¥12
-- 土壤湿度传感器        ¥20
-- 水位传感器           ¥25
-- 5V 水泵              ¥12
-- TP5100 充放电模块     ¥8
-- 18650 电池×2         ¥50
-- 防水盒 + 辅料         ¥70
-
-# 2. PCB 设计
-- 访问：https://lceda.cn
-- 搜索"ESP32-C3"开源项目
-- 克隆并修改（参考 docs/LCEDA_DESIGN_GUIDE.md）
-- 下单打样（新人首单免费）
-
-# 3. 焊接组装
-- 元件到货后焊接
-- 装入防水盒
-- 连接传感器和水泵
-
-# 4. 固件烧录
-- 安装 Arduino IDE
-- 烧录固件代码
-- 配置 WiFi 和腾讯云 IoT
+```
+┌─────────────────────────────────────┐
+│   手机 APP      │   设备实物        │
+│                 │                   │
+│  💧 土壤湿度 65%│  ┌───────────┐   │
+│  🔋 电池 85%    │  │ ESP32-C3  │   │
+│  📦 水位 正常  │  │ 传感器     │   │
+│                 │  │ 水泵      │   │
+│  [一键浇水]    │  └───────────┘   │
+└─────────────────────────────────────┘
 ```
 
-### 方式二：软件配置
+---
+
+## 🛠️ 核心组件
+
+| 组件 | 技术选型 | 说明 |
+|------|---------|------|
+| **主控** | ESP32-C3 | WiFi+BLE，低功耗 |
+| **传感器** | 电容式土壤湿度 | 防水耐腐蚀 |
+| **云平台** | ThingsCloud | 免费 IoT 平台 ⭐ |
+| **执行器** | 5V 微型水泵 | 流量 5L/min |
+| **电源** | 18650×2 | 7.4V 5000mAh |
+
+---
+
+## 📋 功能清单
+
+### 基础功能
+- [x] WiFi 连接
+- [x] 土壤湿度检测
+- [x] 电池电量检测
+- [x] 水箱水位检测
+- [x] 水泵控制
+- [x] 云平台数据上报
+- [x] 手机远程控制
+
+### 高级功能
+- [ ] 自动定时浇水
+- [ ] 根据湿度自动浇水
+- [ ] 低电量告警
+- [ ] 缺水告警
+- [ ] OTA 固件升级
+- [ ] 微信小程序
+- [ ] 历史数据统计
+
+---
+
+## 🔧 快速开始
+
+### 1. 准备硬件
+
+```
+ESP32-C3 开发板 ×1
+土壤湿度传感器 ×1
+水位传感器 ×1
+5V 水泵 ×1
+MOSFET 模块 ×1
+面包板 + 杜邦线
+```
+
+详细清单：见 [BOM.md](docs/BOM.md)
+
+### 2. 安装软件
 
 ```bash
-# 1. 注册腾讯云 IoT
-- 访问：https://console.cloud.tencent.com/iotexplorer
-- 创建公共实例
-- 创建产品（Smart Waterer）
-- 创建设备，保存三元组
+# Arduino IDE
+https://www.arduino.cc/en/software
 
-# 2. 配置微信小程序
-- 注册微信小程序
-- 开通云开发
-- 导入 IoT 模板
-- 配置 ProductID
-
-# 3. 连接测试
-- 设备上电
-- 连接 WiFi
-- 小程序查看数据
-- 测试远程控制
+# 库
+PubSubClient
+ArduinoJson
 ```
+
+### 3. 配置云平台
+
+1. 微信扫码登录 https://console.thingscloud.xyz
+2. 获取私钥（密钥管理）
+3. 创建主题 `waterer_001`
+
+详细配置：见 [THINGSCLOUD_SETUP.md](docs/THINGSCLOUD_SETUP.md)
+
+### 4. 烧录固件
+
+```cpp
+// 修改配置
+const char* WIFI_SSID = "你的 WiFi";
+const char* WIFI_PASS = "你的密码";
+const char* MQTT_USER = "你的私钥";
+const char* DEVICE_TOPIC = "waterer_001";
+
+// 烧录
+Arduino IDE → 上传
+```
+
+详细步骤：见 [QUICK_START.md](docs/QUICK_START.md)
 
 ---
 
 ## 📚 文档导航
 
-### 入门指南
+### 入门
+- [快速开始](docs/QUICK_START.md) ⭐ **必读**
+- [项目计划](docs/PLAN.md)
+- [常见问题](docs/FAQ.md)
 
-| 文档 | 说明 | 适合人群 |
-|------|------|---------|
-| [📖 快速开始](docs/QUICK_START.md) | 1 小时上手指南 | 新手 |
-| [📋 项目计划](docs/PLAN.md) | 项目进度和里程碑 | 项目经理 |
-| [❓ FAQ](docs/FAQ.md) | 常见问题解答 | 所有人 |
+### 硬件
+- [硬件设计](docs/HARDWARE_DESIGN.md)
+- [元件清单](docs/BOM.md)
+- [安全风险评估](docs/SAFETY_RISK_ASSESSMENT.md) ⚠️ **重要**
 
-### 需求与计划
+### 软件
+- [ThingsCloud 接入](docs/THINGSCLOUD_SETUP.md) ⭐ **必读**
+- [固件开发指南](docs/FIRMWARE_DEVELOPMENT.md)
+- [电池安全代码](firmware/main/battery_safety.c)
 
-| 文档 | 说明 |
-|------|------|
-| [📄 PRD](docs/PRD.md) | 产品需求文档 |
-| [📅 PLAN](docs/PLAN.md) | 项目实施计划 |
+### IoT 平台
+- [IoT 平台选型](docs/IOT_PLATFORM_RESEARCH.md)
+- [微信小程序](docs/WECHAT_MINIPROGRAM.md)
 
-### 技术调研
-
-| 文档 | 说明 |
-|------|------|
-| [🔬 技术调研](docs/TECH_RESEARCH.md) | 整体技术方案 |
-| [☁️ IoT 平台选型](docs/IOT_PLATFORM_RESEARCH.md) | 5 个平台详细对比 |
-| [📡 腾讯云接入](docs/TENCENT_IOT_SETUP.md) | 腾讯云 IoT 完整指南 |
-
-### 硬件设计
-
-| 文档 | 说明 |
-|------|------|
-| [🔌 硬件设计](docs/HARDWARE_DESIGN.md) | 原理图 +PCB+BOM |
-| [🎨 立创 EDA 指南](docs/LCEDA_DESIGN_GUIDE.md) | PCB 设计完整教程 |
-| [📦 元件清单](docs/BOM.md) | 完整采购清单 |
-
-### 软件开发
-
-| 文档 | 说明 |
-|------|------|
-| [💻 固件开发](docs/FIRMWARE_DEVELOPMENT.md) | ESP32 固件开发指南 |
-| [📱 小程序开发](docs/WECHAT_MINIPROGRAM.md) | 微信小程序开发指南 |
-
-### 测试与验收
-
-| 文档 | 说明 |
-|------|------|
-| [🧪 测试计划](docs/TEST_PLAN.md) | 完整测试方案 |
-| [📊 Review 报告](docs/REVIEW_REPORT.md) | 文档审查报告 |
+### 其他
+- [测试计划](docs/TEST_PLAN.md)
+- [审查报告](docs/REVIEW_REPORT.md)
 
 ---
 
-## 💰 成本估算
+## 💰 成本分析
 
-### 硬件成本
+| 项目 | 成本 | 说明 |
+|------|------|------|
+| **硬件** | ¥200 | 含安全整改 |
+| **云平台** | ¥0 | ThingsCloud 免费 |
+| **PCB** | ¥15 | 嘉立创打样 |
+| **外壳** | ¥25 | 防水盒 |
+| **总计** | **¥240** | 量产可降至¥150 |
 
-| 类别 | 金额 |
-|------|------|
-| 主控 + 传感器 | ¥57 |
-| 执行器 + 电源 | ¥70 |
-| 结构 + 辅料 | ¥70 |
-| **总计** | **¥197** |
-
-### 云服务成本
-
-| 服务 | 免费额度 | 月成本 |
-|------|---------|--------|
-| 腾讯云 IoT | 100 万消息/月 | ¥0 |
-| 云开发 | 免费版 | ¥0 |
-| COS 存储 | 50GB | ¥0 |
-| **总计** | | **¥0/月** |
+**对比商用：** 市面同类产品¥500-1000
 
 ---
 
-## 🔧 技术栈
+## 🛡️ 安全提示
 
-| 模块 | 技术 |
-|------|------|
-| **主控** | ESP32-C3 SuperMini |
-| **固件** | Arduino + ESP-IDF |
-| **通信** | MQTT 3.1.1 |
-| **云平台** | 腾讯云 IoT 公共实例 |
-| **小程序** | 微信小程序 + 云开发 |
-| **PCB** | 立创 EDA + 嘉立创 |
+⚠️ **本项目涉及锂电池和水电混合，请务必注意：**
 
----
+1. **电池安全** - 必须添加温度监控和保护板
+2. **防水处理** - PCB 喷涂三防漆，外壳 IP65
+3. **过流保护** - 添加自恢复保险丝
+4. **使用环境** - 避免阳光直射和高温
 
-## 📐 硬件规格
-
-| 参数 | 值 |
-|------|-----|
-| 尺寸 | 80×60×40mm |
-| 重量 | ~150g |
-| 供电 | 18650×2 (7.4V) |
-| 续航 | 30 天 |
-| 防水 | IP65 |
-| 工作温度 | -10~50°C |
+详细安全要求：见 [SAFETY_RISK_ASSESSMENT.md](docs/SAFETY_RISK_ASSESSMENT.md)
 
 ---
 
-## 📊 功能规格
-
-| 功能 | 说明 |
-|------|------|
-| 土壤湿度检测 | 0-100%，精度±5% |
-| 水位检测 | 有水/缺水 |
-| 电池检测 | 0-100%，低压保护 |
-| 自动浇水 | 定时/湿度触发 |
-| 远程控制 | 微信小程序 |
-| OTA 更新 | HTTPS 下载 |
-
----
-
-## 🗺️ 项目路线图
-
-```
-2026-03-12  需求分析 ✅
-     │
-     ▼
-2026-03-12  技术调研 ✅
-     │
-     ▼
-2026-03-14  平台接入 ⏳
-     │
-     ▼
-2026-03-21  固件开发
-     │
-     ▼
-2026-03-26  小程序开发
-     │
-     ▼
-2026-04-02  硬件设计
-     │
-     ▼
-2026-04-07  样机装配
-     │
-     ▼
-2026-04-08  测试验收
-```
-
----
-
-## 🤝 参与贡献
+## 🤝 贡献指南
 
 欢迎提交 Issue 和 Pull Request！
 
-1. Fork 本项目
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
+### 开发分支
+- `main` - 稳定版本
+- `dev` - 开发版本
+- `feature/*` - 新功能分支
+
+### 提交规范
+```
+feat: 添加新功能
+fix: 修复 bug
+docs: 更新文档
+style: 代码格式
+refactor: 重构
+test: 测试
+chore: 构建/工具
+```
 
 ---
 
@@ -247,13 +207,22 @@ MIT License - 详见 [LICENSE](LICENSE)
 
 ---
 
-## 📞 联系方式
+## 🙏 致谢
 
-- **GitHub Issues:** https://github.com/98008033/smart-waterer/issues
-- **项目仓库:** https://github.com/98008033/smart-waterer
+- [ESP32](https://www.espressif.com/) - 强大的主控芯片
+- [ThingsCloud](https://thingscloud.xyz/) - 免费 IoT 平台
+- [Arduino](https://www.arduino.cc/) - 友好的开发环境
+- [嘉立创](https://www.jlcpcb.com/) - PCB 打样
+
+---
+
+## 📮 联系方式
+
+- 项目 Issue: https://github.com/yourname/smart-waterer/issues
+- 讨论区：GitHub Discussions
 
 ---
 
 **🌟 如果这个项目对你有帮助，请给个 Star！**
 
-*最后更新：2026-03-12*
+*最后更新：2026-03-13*
